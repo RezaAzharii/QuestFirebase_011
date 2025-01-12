@@ -27,7 +27,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -50,7 +49,6 @@ fun HomeScreen(
     onDetailClick: (String) -> Unit = {},
     viewModel: HomeViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ){
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     Scaffold (
         modifier = modifier,
         topBar = {
@@ -79,6 +77,7 @@ fun HomeScreen(
             modifier = Modifier.padding(innerPadding),
             onDetailClick = onDetailClick,
             onDeleteClick = {
+                viewModel.deleteMhs(it)
                 viewModel.getMhs()
             }
         )
@@ -102,10 +101,10 @@ fun HomeStatus(
                 mahasiswa = homeUiState.data,
                 modifier = modifier.fillMaxWidth(),
                 onDetailClick = {
-                    onDetailClick(it)
+                    onDetailClick(it.nim)
                 },
                 onDeleteClick = {
-                    onDeleteClick(it)
+                    deleteConfirmationRequired = it
                 }
             )
             deleteConfirmationRequired?.let { data ->
@@ -159,7 +158,7 @@ fun OnError(
 fun MhsLayout(
     mahasiswa: List<Mahasiswa>,
     modifier: Modifier = Modifier,
-    onDetailClick: (String) -> Unit,
+    onDetailClick: (Mahasiswa) -> Unit,
     onDeleteClick: (Mahasiswa) -> Unit = {}
 ){
     LazyColumn (
@@ -174,7 +173,7 @@ fun MhsLayout(
                     mahasiswa = mhs,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clickable { onDetailClick(mhs.nim) },
+                        .clickable { onDetailClick(mhs) },
                     onDeleteClick = {
                         onDeleteClick(mhs)
                     }
