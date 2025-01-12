@@ -1,5 +1,6 @@
 package com.example.pertemuafirebasedb.repository
 
+import android.util.Log
 import com.example.pertemuafirebasedb.model.Mahasiswa
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -23,11 +24,14 @@ class NetworkRepositoryMhs(
 
     override suspend fun deleteMhs(mahasiswa: Mahasiswa) {
         try {
+            Log.d("DeleteMhs", "Proses penghapusan data mahasiswa dengan NIM: ${mahasiswa.nim} dimulai.")
             firestore.collection("Mahasiswa")
                 .document(mahasiswa.nim)
                 .delete()
                 .await()
+            Log.d("DeleteMhs", "Data mahasiswa dengan NIM: ${mahasiswa.nim} berhasil dihapus.")
         }catch (e: Exception){
+            Log.e("DeleteMhs", "Gagal menghapus data mahasiswa dengan NIM: ${mahasiswa.nim}. Error: ${e.message}")
             throw Exception("Gagal Menghapus Data Mahasiswa: ${e.message}")
         }
     }
