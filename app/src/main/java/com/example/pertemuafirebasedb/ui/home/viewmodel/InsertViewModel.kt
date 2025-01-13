@@ -9,6 +9,11 @@ import com.example.pertemuafirebasedb.model.Mahasiswa
 import com.example.pertemuafirebasedb.repository.RepositoryMhs
 import kotlinx.coroutines.launch
 
+data class InsertUiState(
+    val insertUiEvent: MahasiswaEvent = MahasiswaEvent(),
+    val isEntryValid: FormErrorState = FormErrorState()
+)
+
 data class FormErrorState(
     val nim: String? = null,
     val nama: String? = null,
