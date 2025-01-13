@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.pertemuafirebasedb.navigation.PengelolaHalman
 import com.example.pertemuafirebasedb.ui.home.pages.HomeScreen
 import com.example.pertemuafirebasedb.ui.theme.PertemuaFirebaseDBTheme
 
@@ -21,9 +22,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             PertemuaFirebaseDBTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    HomeScreen(
-                        modifier = Modifier.padding(innerPadding),
-                        navigateToItemEntry = {}
+                    PengelolaHalman(
+                        modifier = Modifier.padding(innerPadding)
                     )
                 }
             }
