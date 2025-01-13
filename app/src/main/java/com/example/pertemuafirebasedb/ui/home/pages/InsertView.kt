@@ -39,6 +39,75 @@ import com.example.pertemuafirebasedb.ui.home.viewmodel.MahasiswaEvent
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun InsertView(
+    onBack: () -> Unit,
+    onNavigate: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: InsertViewModel = viewModel(factory = PenyediaViewModel.Factory)
+){
+    val uiState = viewModel.uiState
+    val uiEvent = viewModel.uiEvent
+    val snackbarHostState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
+
+    LaunchedEffect(uiState) {
+        when(uiState){
+            is FormState.Success ->{
+                println("InsertView: uiState id FormState.Success, Navigate to home" + uiState.message)
+                coroutineScope.launch {
+                    snackbarHostState.showSnackbar(uiState.message)
+                }
+                delay(700)
+                onNavigate()
+                viewModel.resetSnackBarMessage()
+            }
+            is FormState.Error ->{
+                coroutineScope.launch {
+                    snackbarHostState.showSnackbar(uiState.message)
+                }
+            }
+            else -> Unit
+        }
+    }
+    Scaffold (
+        modifier = modifier,
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState)},
+        topBar = {
+            TopAppBar(
+                title = { Text("Tambah Mahasiswa") },
+                navigationIcon = {
+                    Button(onClick = onBack) {
+                        Text("Back")
+                    }
+                }
+            )
+        }
+    ){padding ->
+        Column (
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(16.dp)
+        ){
+            InsertBodyMhs(
+                uiState = uiEvent,
+                homeUiState = uiState,
+                onValueChange = { updateEvent ->
+                    viewModel.updateState(updateEvent)
+                },
+                onClick = {
+                    if(viewModel.validateFields()){
+                        viewModel.insertMhs()
+                        onNavigate()
+                    }
+                }
+            )
+        }
+    }
+}
+
 @Composable
 fun InsertBodyMhs(
     modifier: Modifier = Modifier,
