@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.pertemuafirebasedb.ui.home.pages.DetailScreen
 import com.example.pertemuafirebasedb.ui.home.pages.HomeScreen
 import com.example.pertemuafirebasedb.ui.home.pages.InsertView
 
@@ -21,8 +22,8 @@ fun PengelolaHalman(
     ){
         composable(DestinasiHome.route){
             HomeScreen(
-                onDetailClick = {
-
+                onDetailClick = {nim ->
+                    navController.navigate("${DestinasiDetail.route}/$nim")
                 },
                 navigateToItemEntry = {
                     navController.navigate(DestinasiInsert.route)
@@ -36,6 +37,9 @@ fun PengelolaHalman(
                     navController.navigate(DestinasiHome.route)
                 }
             )
+        }
+        composable(DestinasiDetail.routesWithArg){
+
         }
     }
 }

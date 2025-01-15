@@ -190,11 +190,9 @@ fun FormMahasiswa(
             text = errorState.nim ?: "",
             color = Color.Red
         )
-
-        Spacer(modifier = Modifier.height(16.dp))
         Text(text = "Jenis Kelamin")
         Row (
-            modifier = Modifier.fillMaxWidth()
+            modifier = modifier.fillMaxWidth()
         ){
             jenisKelamin.forEach { jk ->
                 Row (
@@ -230,11 +228,9 @@ fun FormMahasiswa(
             text = errorState.alamat ?: "",
             color = Color.Red
         )
-
-        Spacer(modifier = Modifier.height(16.dp))
         Text(text = "Kelas")
         Row (
-            modifier = Modifier.fillMaxWidth()
+            modifier = modifier.fillMaxWidth()
         ){
             kelas.forEach { kls ->
                 Row (
@@ -257,7 +253,7 @@ fun FormMahasiswa(
         )
 
         OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = modifier.fillMaxWidth(),
             value = mahasiswaEvent.angkatan,
             onValueChange = {
                 onValueChange(mahasiswaEvent.copy(angkatan = it))
@@ -269,6 +265,48 @@ fun FormMahasiswa(
         )
         Text(
             text = errorState.angkatan ?: "",
+            color = Color.Red
+        )
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = mahasiswaEvent.judul,
+            onValueChange = {
+                onValueChange(mahasiswaEvent.copy(judul = it))
+            },
+            label = { Text("Judul Skripsi")},
+            isError = errorState.judul != null,
+            placeholder = { Text("Masukan Judul Skripsi")}
+        )
+        Text(
+            text = errorState.judul ?: "",
+            color = Color.Red
+        )
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = mahasiswaEvent.dospem1,
+            onValueChange = {
+                onValueChange(mahasiswaEvent.copy(dospem1 = it))
+            },
+            label = { Text("Dosen Pembimbing 1")},
+            isError = errorState.dospem1 != null,
+            placeholder = { Text("Masukan Nama Dosen Pembimbing")}
+        )
+        Text(
+            text = errorState.dospem1 ?: "",
+            color = Color.Red
+        )
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = mahasiswaEvent.dospem2,
+            onValueChange = {
+                onValueChange(mahasiswaEvent.copy(dospem2 = it))
+            },
+            label = { Text("Dosen Pembimbing 2")},
+            isError = errorState.dospem2 != null,
+            placeholder = { Text("Masukan Nama Dosen Pembimbing")}
+        )
+        Text(
+            text = errorState.dospem2 ?: "",
             color = Color.Red
         )
     }

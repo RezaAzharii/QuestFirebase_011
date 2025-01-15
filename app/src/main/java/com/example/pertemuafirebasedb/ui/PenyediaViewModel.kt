@@ -22,7 +22,12 @@ object PenyediaViewModel {
                 mahasiswaApp().container.repositoryMhs
             )
         }
-
+        initializer{
+            DetailViewModel(
+                createSavedStateHandle(),
+                mahasiswaApp().container.repositoryMhs
+            )
+        }
     }
 }
 

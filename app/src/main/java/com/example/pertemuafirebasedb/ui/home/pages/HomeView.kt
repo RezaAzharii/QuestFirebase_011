@@ -121,8 +121,7 @@ fun HomeStatus(
 
         is HomeUiState.Error -> OnError(
             retryAction,
-            modifier = modifier.fillMaxSize(),
-            message = homeUiState.e.message ?: "Error Boy"
+            modifier = modifier.fillMaxSize()
         )
     }
 }
@@ -137,15 +136,14 @@ fun OnLoading(
 @Composable
 fun OnError(
     retryAction: () -> Unit,
-    modifier: Modifier = Modifier,
-    message: String
+    modifier: Modifier = Modifier
 ){
     Column (
         modifier = modifier,
         verticalArrangement = Arrangement.Center
     ){
         Text(
-            text = "Terjadi Kesalahan : $message",
+            text = "Terjadi Kesalahan : ",
             modifier = Modifier
         )
         Button(onClick = retryAction) {
@@ -219,11 +217,11 @@ fun MhsCard(
                 )
             }
             Text(
-                text = mahasiswa.kelas,
+                text = mahasiswa.alamat,
                 style = MaterialTheme.typography.titleMedium
             )
             Text(
-                text = mahasiswa.alamat,
+                text = mahasiswa.judul,
                 style = MaterialTheme.typography.titleMedium
             )
         }

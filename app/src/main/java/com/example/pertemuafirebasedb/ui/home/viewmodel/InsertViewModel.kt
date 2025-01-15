@@ -32,7 +32,10 @@ class InsertViewModel(
             jenisKelamin = if(event.jenisKelamin.isNotEmpty()) null else "Jenis Kelamin tidak boleh kosong",
             alamat = if (event.alamat.isNotEmpty()) null else "Alamat tidak boleh kosong",
             kelas = if (event.kelas.isNotEmpty()) null else "Kelas tidak boleh kosong",
-            angkatan = if(event.angkatan.isNotEmpty()) null else "Angkatan tidak boleh kosong"
+            angkatan = if(event.angkatan.isNotEmpty()) null else "Angkatan tidak boleh kosong",
+            judul = if(event.judul.isNotEmpty()) null else "Judul Skripsi tidak boleh kosong",
+            dospem1 = if(event.dospem1.isNotEmpty()) null else "Dosen Pembimbing 1 tidak boleh kosong",
+            dospem2 = if(event.dospem2.isNotEmpty()) null else "Dosen Pembimbing 2 tidak boleh kosong"
         )
         uiEvent = uiEvent.copy(
             isEntryValid = errorState
@@ -84,7 +87,10 @@ data class FormErrorState(
     val jenisKelamin: String? = null,
     val alamat: String? = null,
     val kelas: String? = null,
-    val angkatan: String? = null
+    val angkatan: String? = null,
+    val judul: String? = null,
+    val dospem1: String? = null,
+    val dospem2: String? = null
 ){
     fun isValid(): Boolean{
         return nim == null &&
@@ -92,7 +98,10 @@ data class FormErrorState(
                 jenisKelamin == null &&
                 alamat == null &&
                 kelas == null &&
-                alamat == null
+                alamat == null &&
+                judul == null &&
+                dospem1 == null &&
+                dospem2 == null
     }
 }
 
@@ -102,7 +111,10 @@ data class MahasiswaEvent(
     val jenisKelamin: String = "",
     val alamat: String = "",
     val kelas: String = "",
-    val angkatan: String = ""
+    val angkatan: String = "",
+    val judul: String = "",
+    val dospem1: String = "",
+    val dospem2: String = ""
 )
 
 fun MahasiswaEvent.toMhsModel(): Mahasiswa = Mahasiswa(
@@ -111,5 +123,8 @@ fun MahasiswaEvent.toMhsModel(): Mahasiswa = Mahasiswa(
     jenisKelamin = jenisKelamin,
     alamat = alamat,
     kelas = kelas,
-    angkatan = angkatan
+    angkatan = angkatan,
+    judul = judul,
+    dospem1 = dospem1,
+    dospem2 = dospem2
 )
